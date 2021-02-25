@@ -9,7 +9,7 @@ cd /usr/local/src
 
 wget https://dist.apache.org/repos/dist/release/apr/apr-1.7.0.tar.gz
 wget https://dist.apache.org/repos/dist/release/apr/apr-util-1.6.1.tar.gz
-wget https://dist.apache.org/repos/dist/release/subversion/subversion-1.14.1.tar.gz
+wget https://dist.apache.org/repos/dist/release/subversion/subversion-1.10.7.tar.gz
 wget https://github.com/libexpat/libexpat/releases/download/R_2_2_10/expat-2.2.10.tar.gz
 wget https://www.sqlite.org/2021/sqlite-amalgamation-3340100.zip
 wget https://www.zlib.net/zlib-1.2.11.tar.gz
@@ -45,9 +45,9 @@ cd ..
 
 unzip sqlite-amalgamation-3340100.zip
 
-tar zxvf subversion-1.14.1.tar.gz
-mv sqlite-amalgamation-3340100 ./subversion-1.14.1/sqlite-amalgamation
-cd subversion-1.14.1
+tar zxvf subversion-1.10.7.tar.gz
+mv sqlite-amalgamation-3340100 ./subversion-1.10.7/sqlite-amalgamation
+cd subversion-1.10.7
 ./configure --prefix=/usr/local/subversion --with-apr=/usr/local/subversion --with-apr-util=/usr/local/subversion --with-zlib=/usr/local/subversion --with-lz4=internal --with-utf8proc=internal
 make
 make install
