@@ -1,53 +1,61 @@
 #/bin/bash
 
-apt-get -y update;                   \
-apt-get -y upgrade;                  \
-apt-get install -y build-essential;  \
+apt-get -y update;                                                            \
+apt-get install -y build-essential;                                           \
 apt-get install -y unzip wget
+
+. /usr/local/src/get_deps.sh
+
+APR_SOURCE=apr-${APR_VERSION}
+APR_UTIL_SOURCE=apr-util-${APR_UTIL_VERSION}
+SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
+EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
+ZLIB_SOURCE=zlib-${ZLIB_VERSION}
+SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
 
 cd /usr/local/src
 
-wget https://dist.apache.org/repos/dist/release/apr/apr-1.7.0.tar.gz
-wget https://dist.apache.org/repos/dist/release/apr/apr-util-1.6.1.tar.gz
-wget https://dist.apache.org/repos/dist/release/subversion/subversion-1.10.7.tar.gz
-wget https://github.com/libexpat/libexpat/releases/download/R_2_2_10/expat-2.2.10.tar.gz
-wget https://www.sqlite.org/2021/sqlite-amalgamation-3340100.zip
-wget https://www.zlib.net/zlib-1.2.11.tar.gz
+wget https://dist.apache.org/repos/dist/release/apr/${APR_SOURCE}.tar.gz
+wget https://dist.apache.org/repos/dist/release/apr/${APR_UTIL_SOURCE}.tar.gz
+wget https://dist.apache.org/repos/dist/release/subversion/${SUBVERSION_SOURCE}.tar.gz
+wget https://github.com/libexpat/libexpat/releases/download/${EXPAT_PREFIX}/${EXPAT_SOURCE}.tar.gz
+wget https://www.sqlite.org/${SQLITE_VERSION_REL_YEAR}/${SQLITE_SOURCE}.zip
+wget https://www.zlib.net/${ZLIB_SOURCE}.tar.gz
 
-tar zxvf apr-1.7.0.tar.gz
-cd apr-1.7.0
+tar zxvf ${APR_SOURCE}.tar.gz
+cd ${APR_SOURCE}
 ./configure --prefix=/usr/local/subversion
 make
 make install
 cd ..
 
-tar zxvf zlib-1.2.11.tar.gz
-cd zlib-1.2.11
+tar zxvf ${ZLIB_SOURCE}.tar.gz
+cd ${ZLIB_SOURCE}
 ./configure --prefix=/usr/local/subversion --shared --libdir=/usr/local/subversion/lib
 make
 make install
 cd ..
 
-tar zxvf expat-2.2.10.tar.gz
-cd expat-2.2.10
+tar zxvf ${EXPAT_SOURCE}.tar.gz
+cd ${EXPAT_SOURCE}
 ./configure --prefix=/usr/local/subversion --without-xmlwf --without-examples --without-tests
 make
 make install
 cd ..
 
 
-tar zxvf apr-util-1.6.1.tar.gz
-cd apr-util-1.6.1
+tar zxvf ${APR_UTIL_SOURCE}.tar.gz
+cd ${APR_UTIL_SOURCE}
 ./configure --prefix=/usr/local/subversion --with-apr=/usr/local/subversion --with-expat=/usr/local/subversion
 make
 make install
 cd ..
 
-unzip sqlite-amalgamation-3340100.zip
+unzip ${SQLITE_SOURCE}.zip
 
-tar zxvf subversion-1.10.7.tar.gz
-mv sqlite-amalgamation-3340100 ./subversion-1.10.7/sqlite-amalgamation
-cd subversion-1.10.7
+tar zxvf ${SUBVERSION_SOURCE}.tar.gz
+mv ${SQLITE_SOURCE} ./${SUBVERSION_SOURCE}/sqlite-amalgamation
+cd ${SUBVERSION_SOURCE}
 ./configure --prefix=/usr/local/subversion --with-apr=/usr/local/subversion --with-apr-util=/usr/local/subversion --with-zlib=/usr/local/subversion --with-lz4=internal --with-utf8proc=internal
 make
 make install
