@@ -1,7 +1,9 @@
 #/bin/bash
 
-apt-get -y update;                                                            \
-apt-get install -y build-essential;                                           \
+cd /usr/local/src
+
+apt-get -y update; \
+apt-get install -y build-essential; \
 apt-get install -y unzip wget
 
 . /usr/local/src/get_deps.sh
@@ -12,8 +14,6 @@ SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
 EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
 ZLIB_SOURCE=zlib-${ZLIB_VERSION}
 SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
-
-cd /usr/local/src
 
 wget https://dist.apache.org/repos/dist/release/apr/${APR_SOURCE}.tar.gz
 wget https://dist.apache.org/repos/dist/release/apr/${APR_UTIL_SOURCE}.tar.gz
@@ -61,5 +61,3 @@ make
 make install
 cd ..
 
-cd /usr/local/
-tar zcvf subversion.tar.gz ./subversion/
