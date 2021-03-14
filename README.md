@@ -1,1 +1,36 @@
-# docker-subversion
+# subversion server
+build from soure code
+
+# svnserve
+svn protocol server (svn://) 
+## applicaion path
+    /usr/local/subversion 
+## execute
+    mkdir -p /var/svn
+    docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:svnserve-1.14.1-0
+
+## default
+* repository path : /var/svn
+* svn listening on port : 3690
+* running user / group is root
+
+# build source code list and version
+## subversion 1.14
+| **name** | **version** |
+|:---:|:---:|
+| apr | 1.7.0 |
+| apr-util | 1.6.1 |
+| subversion | 1.14.1 |
+| expat |2 .2.10 |
+| sqlite-amalgamation | 3350000 |
+| zlib | 1.2.11 |
+
+## subversion 1.10
+| **name** | **version** |
+|:---:|:---:|
+| apr | 1.7.0 |
+| apr-util | 1.6.1 |
+| subversion | 1.10.7 |
+| expat |2 .2.10 |
+| sqlite-amalgamation | 3350000 |
+| zlib | 1.2.11 |
