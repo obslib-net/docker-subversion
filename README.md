@@ -3,6 +3,7 @@ build from soure code
 
 # svnserve
 svn protocol server (svn://) 
+
 ## applicaion path
     /usr/local/subversion 
 ## execute
@@ -34,3 +35,7 @@ svn protocol server (svn://)
 | expat |2 .2.10 |
 | sqlite-amalgamation | 3350000 |
 | zlib | 1.2.11 |
+
+
+# project
+* Where to file issues: https://github.com/obslib-net/docker-subversion/issues
