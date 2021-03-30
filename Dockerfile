@@ -10,6 +10,8 @@ FROM ubuntu:bionic AS install
 COPY --from=build /usr/local/subversion /usr/local/subversion/
 COPY entrypoint.sh /usr/local/subversion/bin/entrypoint.sh
 RUN chmod 755 /usr/local/subversion/bin/entrypoint.sh
+ENV LD_LIBRARY_PATH /usr/local/subversion/lib
+RUN ldconfig
 
 EXPOSE 3690
 
