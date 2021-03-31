@@ -4,7 +4,7 @@ cd /usr/local/src
 
 apt-get -y update; \
 apt-get install -y build-essential; \
-apt-get install -y unzip wget
+apt-get install -y unzip wget groff-base
 
 . /usr/local/src/get_deps.sh
 
@@ -70,12 +70,10 @@ cd ..
 ## CYRUS_SASL
 tar zxvf ${OPENSSL_SOURCE}.tar.gz
 cd ${OPENSSL_SOURCE}
-./config --prefix=/usr/local/subversion                     \
-         --openssldir=/usr/local/subversion                 \
-         --libdir=lib                                       \
-         --with-zlib-include=/usr/local/subversion/include  \
-         --with-zlib-lib=/usr/local/subversion/lib          \
-         shared zlib-dynamic
+./config    --prefix=/usr/local/subversion                     \
+            --with-zlib-include=/usr/local/subversion/include  \
+            --with-zlib-lib=/usr/local/subversion/lib          \
+            shared zlib-dynamic
 make
 make install
 cd ..
@@ -90,7 +88,7 @@ cd ..
 tar zxvf ${OPENLDAP_SOURCE}.tgz
 cd ${OPENLDAP_SOURCE}
 ./configure --prefix=/usr/local/subversion  \
-             --enable-slapd=no
+            --enable-slapd=no
 make depend
 make
 make install
