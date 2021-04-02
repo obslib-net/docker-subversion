@@ -10,6 +10,10 @@ svn protocol server (svn://)
     mkdir -p /var/svn
     docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:svnserve-latest-0
 
+## authentication
+* password file
+* sasl
+
 ## default
 * repository path : /var/svn
 * svn listening on port : 3690
