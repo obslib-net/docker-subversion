@@ -4,19 +4,15 @@ cd /usr/local/src
 
 apt-get -y update; \
 apt-get install -y build-essential; \
-apt-get install -y unzip wget groff-base
+apt-get install -y unzip wget
 
 . /usr/local/src/get_deps.sh
 
 ### DEFINE
 ## BASE
 ZLIB_SOURCE=zlib-${ZLIB_VERSION}
-GDBM_SOURCE=gdbm-${GDBM_VERSION}
 
 ## CYRUS_SASL BUILD
-LIBNTLM_SOURCE=libntlm-${LIBNTLM_VERSION}
-OPENLDAP_SOURCE=openldap-${OPENLDAP_VERSION}
-OPENSSL_SOURCE=openssl-${OPENSSL_VERSION}
 CYRUS_SASL_SOURCE=cyrus-sasl-${CYRUS_SASL_VERSION}
 
 ## SUBVERSION BUILD
@@ -31,12 +27,8 @@ SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
 ### GET
 ## BASE
 wget https://www.zlib.net/${ZLIB_SOURCE}.tar.gz
-wget https://ftp.gnu.org/gnu/gdbm/${GDBM_SOURCE}.tar.gz
 
 ## CYRUS_SASL
-wget http://www.nongnu.org/libntlm/releases/${LIBNTLM_SOURCE}.tar.gz
-wget https://www.openldap.org/software/download/OpenLDAP/openldap-release/${OPENLDAP_SOURCE}.tgz
-wget https://www.openssl.org/source/${OPENSSL_SOURCE}.tar.gz
 wget https://github.com/cyrusimap/cyrus-sasl/releases/download/${CYRUS_SASL_SOURCE}/${CYRUS_SASL_SOURCE}.tar.gz
 
 ## SUBVERSION LIB
@@ -59,56 +51,23 @@ make
 make install
 cd ..
 
-tar zxvf ${GDBM_SOURCE}.tar.gz
-cd ${GDBM_SOURCE}
-./configure --prefix=/usr/local/subversion
-make
-make install
-cd ..
-
 
 ## CYRUS_SASL
-tar zxvf ${OPENSSL_SOURCE}.tar.gz
-cd ${OPENSSL_SOURCE}
-./config    --prefix=/usr/local/subversion                     \
-            --with-zlib-include=/usr/local/subversion/include  \
-            --with-zlib-lib=/usr/local/subversion/lib          \
-            shared zlib-dynamic
-make
-make install
-cd ..
-
-tar zxvf ${LIBNTLM_SOURCE}.tar.gz
-cd ${LIBNTLM_SOURCE}
-./configure --prefix=/usr/local/subversion
-make
-make install
-cd ..
-
-tar zxvf ${OPENLDAP_SOURCE}.tgz
-cd ${OPENLDAP_SOURCE}
-./configure --prefix=/usr/local/subversion  \
-            --enable-slapd=no
-make depend
-make
-make install
-cd ..
-
 tar zxvf ${CYRUS_SASL_SOURCE}.tar.gz
 cd ${CYRUS_SASL_SOURCE}
-./configure --prefix=/usr/local/subversion          \
-            --enable-login                          \
-            --enable-ntlm                           \
-            --enable-auth-sasldb                    \
-            --with-saslauthd=no                     \
-            --with-dblib=gdbm                       \
-            --with-gdbm=/usr/local/subversion       \
-            --with-openssl=/usr/local/subversion    \
-            CFLAGS="-I/usr/local/subversion"        \
-            LDFLAGS="-L/usr/local/subversion"
+./configure --prefix=/usr/local/subversion           \
+            --enable-checkapop=no                    \
+            --enable-cram=no                         \
+            --enable-digest=no                       \
+            --enable-scram=no                        \
+            --enable-otp=no                          \
+            --enable-plain=no                        \
+            --enable-anon=no                         \
+            --with-saslauthd=no
 make
 make install
 cd ..
+
 
 ## SUBVERSION LIB
 tar zxvf ${APR_SOURCE}.tar.gz
@@ -133,14 +92,7 @@ tar zxvf ${APR_UTIL_SOURCE}.tar.gz
 cd ${APR_UTIL_SOURCE}
 ./configure --prefix=/usr/local/subversion                      \
             --with-apr=/usr/local/subversion                    \
-            --with-expat=/usr/local/subversion                  \
-            --with-crypto                                       \
-            --with-openssl=/usr/local/subversion                \
-            --with-gdbm=/usr/local/subversion                   \
-            --with-dbm=gdbm                                     \
-            --with-ldap-include=/usr/local/subversion/include   \
-            --with-ldap-lib=/usr/local/subversion/lib           \
-            --with-ldap
+            --with-expat=/usr/local/subversion
 make
 make install
 cd ..
