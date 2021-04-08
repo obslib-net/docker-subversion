@@ -63,7 +63,7 @@ cd ${CYRUS_SASL_SOURCE}
             --enable-otp=no                          \
             --enable-plain=no                        \
             --enable-anon=no                         \
-            --with-saslauthd=no
+            --with-saslauthd=/run/saslauthd
 make
 make install
 cd ..
@@ -98,6 +98,12 @@ make install
 cd ..
 
 ## SUBVERSION
+# clean
+rm -r -f /usr/local/subversion/bin
+rm -r -f /usr/local/subversion/sbin
+rm -r -f /usr/local/subversion/share
+
+# build
 unzip ${SQLITE_SOURCE}.zip
 tar zxvf ${SUBVERSION_SOURCE}.tar.gz
 mv ${SQLITE_SOURCE} ./${SUBVERSION_SOURCE}/sqlite-amalgamation
