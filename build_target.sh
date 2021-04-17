@@ -108,9 +108,7 @@ cd ${CYRUS_SASL_SOURCE}
             --with-saslauthd=/var/run/saslauthd     \
             LDFLAGS="-L/usr/local/subversion/lib -Wl,--rpath=/usr/local/subversion/lib -lgdbm"
 make
-cd lib
 make install
-cd ..
 cd ..
 
 
@@ -148,9 +146,9 @@ make
 make install
 cd ..
 
+
 ## SUBVERSION
 # clean
-rm -r -f /usr/local/subversion/sbin
 rm -r -f /usr/local/subversion/share
 
 # build
