@@ -168,3 +168,8 @@ make
 make install
 cd ..
 
+
+## config
+echo pwcheck_method: saslauthd > /usr/local/subversion/lib/sasl2/svn.conf
+echo mech_list: PLAIN LOGIN >> /usr/local/subversion/lib/sasl2/svn.conf
+
