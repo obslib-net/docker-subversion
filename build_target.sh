@@ -100,15 +100,17 @@ cd ${CYRUS_SASL_SOURCE}
             --enable-login                          \
             --enable-ntlm                           \
             --enable-auth-sasldb                    \
-            --with-saslauthd=no                     \
+            --with-saslauthd                        \
             --with-dblib=gdbm                       \
-            --with-gdbm=/usr/local/subversion       \
+            --with-ldap=/usr/local/subversion       \
             --with-openssl=/usr/local/subversion    \
-            CFLAGS="-I/usr/local/subversion"        \
-            LDFLAGS="-L/usr/local/subversion"
+            --with-gdbm=/usr/local/subversion       \
+            --with-saslauthd=/var/run/saslauthd     \
+            LDFLAGS="-L/usr/local/subversion/lib -Wl,--rpath=/usr/local/subversion/lib -lgdbm"
 make
 make install
 cd ..
+
 
 ## SUBVERSION LIB
 tar zxvf ${APR_SOURCE}.tar.gz
@@ -128,7 +130,6 @@ make
 make install
 cd ..
 
-
 tar zxvf ${APR_UTIL_SOURCE}.tar.gz
 cd ${APR_UTIL_SOURCE}
 ./configure --prefix=/usr/local/subversion                      \
@@ -145,7 +146,12 @@ make
 make install
 cd ..
 
+
 ## SUBVERSION
+# clean
+rm -r -f /usr/local/subversion/share
+
+# build
 unzip ${SQLITE_SOURCE}.zip
 tar zxvf ${SUBVERSION_SOURCE}.tar.gz
 mv ${SQLITE_SOURCE} ./${SUBVERSION_SOURCE}/sqlite-amalgamation
@@ -161,4 +167,9 @@ cd ${SUBVERSION_SOURCE}
 make
 make install
 cd ..
+
+
+## config
+echo pwcheck_method: saslauthd > /usr/local/subversion/lib/sasl2/svn.conf
+echo mech_list: PLAIN LOGIN >> /usr/local/subversion/lib/sasl2/svn.conf
 
