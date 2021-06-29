@@ -8,38 +8,52 @@ apt-get install -y unzip wget
 
 . /usr/local/src/get_deps.sh
 
-### DEFINE
+# DEFINE
 ## BASE
 ZLIB_SOURCE=zlib-${ZLIB_VERSION}
+OPENSSL_SOURCE=openssl-${OPENSSL_VERSION}
+EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
 
-## CYRUS_SASL BUILD
-
-## SUBVERSION BUILD
+## HTTPD
 APR_SOURCE=apr-${APR_VERSION}
 APR_UTIL_SOURCE=apr-util-${APR_UTIL_VERSION}
-EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
-SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
+PCRE_SOURCE=pcre-${PCRE_VERSION}
+HTTPD_SOURCE=httpd-${HTTPD_VERSION}
 
 ## SUBVERSION
+SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
 SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
 
-### GET
+# GET
 ## BASE
 wget https://www.zlib.net/${ZLIB_SOURCE}.tar.gz
+wget https://www.openssl.org/source/${OPENSSL_SOURCE}.tar.gz
+wget https://github.com/libexpat/libexpat/releases/download/${EXPAT_PREFIX}/${EXPAT_SOURCE}.tar.gz
 
-## CYRUS_SASL
-apt-get install -y libsasl2-dev
-
-## SUBVERSION LIB
+# HTTPD
 wget https://dist.apache.org/repos/dist/release/apr/${APR_SOURCE}.tar.gz
 wget https://dist.apache.org/repos/dist/release/apr/${APR_UTIL_SOURCE}.tar.gz
-wget https://github.com/libexpat/libexpat/releases/download/${EXPAT_PREFIX}/${EXPAT_SOURCE}.tar.gz
+wget https://ftp.pcre.org/pub/pcre/${PCRE_SOURCE}.tar.gz
+wget https://dist.apache.org/repos/dist/release/httpd/${HTTPD_SOURCE}.tar.gz
+
+## SUBVERSION LIB
 wget https://www.sqlite.org/${SQLITE_VERSION_REL_YEAR}/${SQLITE_SOURCE}.zip
 
 ## SUBVERSION
 wget https://dist.apache.org/repos/dist/release/subversion/${SUBVERSION_SOURCE}.tar.gz
 
-### BUILD
+# install extend lib
+apt-get install -y libsasl2-dev libldap2-dev
+
+# BUILD
+## INIT
+echo "/usr/local/subversion/lib" >  /etc/ld.so.conf.d/subversion.conf
+echo "/usr/local/httpd/lib"      >> /etc/ld.so.conf.d/subversion.conf
+ldconfig
+
+export LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib:$LD_LIBRARY_PATH
+export LD_RUN_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib:$LD_RUN_PATH
+
 ## BASE
 tar zxvf ${ZLIB_SOURCE}.tar.gz
 cd ${ZLIB_SOURCE}
@@ -50,13 +64,12 @@ make
 make install
 cd ..
 
-
-## CYRUS_SASL
-
-## SUBVERSION LIB
-tar zxvf ${APR_SOURCE}.tar.gz
-cd ${APR_SOURCE}
-./configure --prefix=/usr/local/subversion
+tar zxvf ${OPENSSL_SOURCE}.tar.gz
+cd ${OPENSSL_SOURCE}
+./config    --prefix=/usr/local/httpd                          \
+            --with-zlib-include=/usr/local/httpd/include       \
+            --with-zlib-lib=/usr/local/httpd/lib               \
+            shared zlib-dynamic
 make
 make install
 cd ..
@@ -71,21 +84,51 @@ make
 make install
 cd ..
 
-tar zxvf ${APR_UTIL_SOURCE}.tar.gz
-cd ${APR_UTIL_SOURCE}
-./configure --prefix=/usr/local/subversion                      \
-            --with-apr=/usr/local/subversion                    \
-            --with-expat=/usr/local/subversion
+tar zxvf ${APR_SOURCE}.tar.gz
+cd ${APR_SOURCE}
+./configure --prefix=/usr/local/httpd
 make
 make install
 cd ..
 
+tar zxvf ${APR_UTIL_SOURCE}.tar.gz
+cd ${APR_UTIL_SOURCE}
+./configure --prefix=/usr/local/httpd                           \
+            --with-apr=/usr/local/httpd                         \
+            --with-expat=/usr/local/httpd                       \
+            --with-crypto                                       \
+            --with-openssl=/usr/local/httpd                     \
+            --with-ldap                                         \
+            CFLAGS="-I/usr/local/httpd/include"                 \
+            LDFLAGS="-L/usr/local/httpd/lib"
+make
+make install
+cd ..
 
-## SUBVERSION
-# clean
-rm -r -f /usr/local/subversion/share
+## httpd
+tar zxvf ${PCRE_SOURCE}.tar.gz
+cd ${PCRE_SOURCE}
+./configure --prefix=/usr/local/httpd
+make
+make install
+cd ..
 
-# build
+# httpd
+tar zxvf ${HTTPD_SOURCE}.tar.gz
+cd ${HTTPD_SOURCE}
+./configure --prefix=/usr/local/httpd                           \
+            --with-apr=/usr/local/httpd                         \
+            --with-apr-util=/usr/local/httpd                    \
+            --with-ssl=/usr/local/httpd                         \
+            --enable-so                                         \
+            --enable-module=so                                  \
+            --with-pcre=/usr/local/httpd/bin/pcre-config        \
+            --enable-mods-shared="all ssl ldap cache proxy authn_alias mem_cache file_cache authnz_ldap charset_lite dav_lock disk_cache"
+make
+make install
+cd ..
+
+# SUBVERSION
 unzip ${SQLITE_SOURCE}.zip
 tar zxvf ${SUBVERSION_SOURCE}.tar.gz
 mv ${SQLITE_SOURCE} ./${SUBVERSION_SOURCE}/sqlite-amalgamation
@@ -104,4 +147,6 @@ cd ..
 
 
 ## config
+rm -r -f /usr/local/httpd/share
+rm -r -f /usr/local/subversion/share
 
