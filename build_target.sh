@@ -11,14 +11,19 @@ apt-get install -y unzip wget
 # DEFINE
 ## BASE
 ZLIB_SOURCE=zlib-${ZLIB_VERSION}
-OPENSSL_SOURCE=openssl-${OPENSSL_VERSION}
 EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
+OPENSSL_SOURCE=openssl-${OPENSSL_VERSION}
 
 ## HTTPD
 APR_SOURCE=apr-${APR_VERSION}
 APR_UTIL_SOURCE=apr-util-${APR_UTIL_VERSION}
 PCRE_SOURCE=pcre-${PCRE_VERSION}
 HTTPD_SOURCE=httpd-${HTTPD_VERSION}
+
+## CYRUS_SASL BUILD
+
+## SUBVERSION BUILD
+
 
 ## SUBVERSION
 SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
@@ -27,10 +32,11 @@ SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
 # GET
 ## BASE
 wget https://www.zlib.net/${ZLIB_SOURCE}.tar.gz
-wget https://www.openssl.org/source/${OPENSSL_SOURCE}.tar.gz
 wget https://github.com/libexpat/libexpat/releases/download/${EXPAT_PREFIX}/${EXPAT_SOURCE}.tar.gz
+wget https://www.openssl.org/source/${OPENSSL_SOURCE}.tar.gz
 
-# HTTPD
+
+## HTTPD
 wget https://dist.apache.org/repos/dist/release/apr/${APR_SOURCE}.tar.gz
 wget https://dist.apache.org/repos/dist/release/apr/${APR_UTIL_SOURCE}.tar.gz
 wget https://ftp.pcre.org/pub/pcre/${PCRE_SOURCE}.tar.gz
@@ -84,6 +90,7 @@ make
 make install
 cd ..
 
+## HTTPD
 tar zxvf ${APR_SOURCE}.tar.gz
 cd ${APR_SOURCE}
 ./configure --prefix=/usr/local/httpd
@@ -94,18 +101,15 @@ cd ..
 tar zxvf ${APR_UTIL_SOURCE}.tar.gz
 cd ${APR_UTIL_SOURCE}
 ./configure --prefix=/usr/local/httpd                           \
-            --with-apr=/usr/local/httpd                         \
-            --with-expat=/usr/local/httpd                       \
+            --with-expat=/usr/local/subversion                  \
             --with-crypto                                       \
             --with-openssl=/usr/local/httpd                     \
             --with-ldap                                         \
-            CFLAGS="-I/usr/local/httpd/include"                 \
-            LDFLAGS="-L/usr/local/httpd/lib"
+            --with-apr=/usr/local/httpd
 make
 make install
 cd ..
 
-## httpd
 tar zxvf ${PCRE_SOURCE}.tar.gz
 cd ${PCRE_SOURCE}
 ./configure --prefix=/usr/local/httpd
@@ -113,7 +117,6 @@ make
 make install
 cd ..
 
-# httpd
 tar zxvf ${HTTPD_SOURCE}.tar.gz
 cd ${HTTPD_SOURCE}
 ./configure --prefix=/usr/local/httpd                           \
@@ -128,15 +131,16 @@ make
 make install
 cd ..
 
-# SUBVERSION
+## SUBVERSION
+# build
 unzip ${SQLITE_SOURCE}.zip
 tar zxvf ${SUBVERSION_SOURCE}.tar.gz
 mv ${SQLITE_SOURCE} ./${SUBVERSION_SOURCE}/sqlite-amalgamation
 cd ${SUBVERSION_SOURCE}
 ./configure --prefix=/usr/local/subversion          \
-            --with-apr=/usr/local/subversion        \
-            --with-apr-util=/usr/local/subversion   \
-            --with-zlib=/usr/local/subversion       \
+            --with-apr=/usr/local/httpd             \
+            --with-apr-util=/usr/local/httpd        \
+            --with-zlib=/usr/local/httpd            \
             --with-lz4=internal                     \
             --with-utf8proc=internal                \
             --with-expat=/usr/local/subversion/include:/usr/local/subversion/lib:expat  \
@@ -149,4 +153,3 @@ cd ..
 ## config
 rm -r -f /usr/local/httpd/share
 rm -r -f /usr/local/subversion/share
-
