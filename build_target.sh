@@ -8,38 +8,50 @@ apt-get install -y unzip wget
 
 . /usr/local/src/get_deps.sh
 
-### DEFINE
+# DEFINE
 ## BASE
 ZLIB_SOURCE=zlib-${ZLIB_VERSION}
+EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
+
+## HTTPD
+APR_SOURCE=apr-${APR_VERSION}
+APR_UTIL_SOURCE=apr-util-${APR_UTIL_VERSION}
 
 ## CYRUS_SASL BUILD
 
 ## SUBVERSION BUILD
-APR_SOURCE=apr-${APR_VERSION}
-APR_UTIL_SOURCE=apr-util-${APR_UTIL_VERSION}
-EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
-SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
+
 
 ## SUBVERSION
+SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
 SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
 
-### GET
+# GET
 ## BASE
 wget https://www.zlib.net/${ZLIB_SOURCE}.tar.gz
+wget https://github.com/libexpat/libexpat/releases/download/${EXPAT_PREFIX}/${EXPAT_SOURCE}.tar.gz
 
-## CYRUS_SASL
-apt-get install -y libsasl2-dev
-
-## SUBVERSION LIB
+## HTTPD
 wget https://dist.apache.org/repos/dist/release/apr/${APR_SOURCE}.tar.gz
 wget https://dist.apache.org/repos/dist/release/apr/${APR_UTIL_SOURCE}.tar.gz
-wget https://github.com/libexpat/libexpat/releases/download/${EXPAT_PREFIX}/${EXPAT_SOURCE}.tar.gz
+
+## SUBVERSION LIB
 wget https://www.sqlite.org/${SQLITE_VERSION_REL_YEAR}/${SQLITE_SOURCE}.zip
 
 ## SUBVERSION
 wget https://dist.apache.org/repos/dist/release/subversion/${SUBVERSION_SOURCE}.tar.gz
 
-### BUILD
+# install extend lib
+apt-get install -y libsasl2-dev
+
+
+# BUILD
+## INIT
+echo "/usr/local/subversion/lib" >  /etc/ld.so.conf.d/subversion.conf
+ldconfig
+
+export LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib:$LD_LIBRARY_PATH
+
 ## BASE
 tar zxvf ${ZLIB_SOURCE}.tar.gz
 cd ${ZLIB_SOURCE}
@@ -51,16 +63,6 @@ make install
 cd ..
 
 
-## CYRUS_SASL
-
-## SUBVERSION LIB
-tar zxvf ${APR_SOURCE}.tar.gz
-cd ${APR_SOURCE}
-./configure --prefix=/usr/local/subversion
-make
-make install
-cd ..
-
 tar zxvf ${EXPAT_SOURCE}.tar.gz
 cd ${EXPAT_SOURCE}
 ./configure --prefix=/usr/local/subversion  \
@@ -71,20 +73,26 @@ make
 make install
 cd ..
 
+## HTTPD
+tar zxvf ${APR_SOURCE}.tar.gz
+cd ${APR_SOURCE}
+./configure --prefix=/usr/local/subversion
+make
+make install
+cd ..
+
 tar zxvf ${APR_UTIL_SOURCE}.tar.gz
 cd ${APR_UTIL_SOURCE}
 ./configure --prefix=/usr/local/subversion                      \
-            --with-apr=/usr/local/subversion                    \
-            --with-expat=/usr/local/subversion
+            --with-expat=/usr/local/subversion                  \
+            --with-apr=/usr/local/subversion
+
 make
 make install
 cd ..
 
 
 ## SUBVERSION
-# clean
-rm -r -f /usr/local/subversion/share
-
 # build
 unzip ${SQLITE_SOURCE}.zip
 tar zxvf ${SUBVERSION_SOURCE}.tar.gz
@@ -104,4 +112,4 @@ cd ..
 
 
 ## config
-
+rm -r -f /usr/local/subversion/share
