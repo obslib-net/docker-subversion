@@ -1,6 +1,7 @@
 # project
 * Where to file issues: https://github.com/obslib-net/docker-subversion/issues
 * DockerHub: https://hub.docker.com/r/obslib/subversion
+* Supported architectures: amd64, arm64v8
 
 # subversion server
 build from source code
@@ -9,8 +10,6 @@ latest version is 1.14.1
 # svnserve
 svn protocol server (svn://)
 
-## applicaion path
-    /usr/local/subversion
 ## execute
     mkdir -p /var/svn
     docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:svnserve-latest-0
@@ -32,6 +31,9 @@ svn protocol server (svn://)
 | apr-util | 1.6.1 | |
 | expat |2.4.4 | |
 | sqlite-amalgamation | 3.37.2 | |
+
+## applicaion path
+    /usr/local/subversion
 
 # optional
 ## sasl settings
