@@ -122,7 +122,7 @@ cd ${HTTPD_SOURCE}
             --enable-so                                         \
             --enable-module=so                                  \
             --with-pcre=/usr/local/httpd/bin/pcre-config        \
-            --enable-mods-shared="all ssl ldap cache proxy authn_alias mem_cache file_cache authnz_ldap charset_lite dav_lock disk_cache"
+            --enable-mods-shared="reallyall"
 make
 make install
 cd ..
@@ -147,5 +147,9 @@ make install
 cd ..
 
 ## config
-rm -r -f /usr/local/httpd/share
 rm -r -f /usr/local/subversion/share
+rm -r -f /usr/local/httpd/share
+rm -r -f /usr/local/httpd/conf
+rm -r -f /usr/local/httpd/manual
+rm -r -f /usr/local/httpd/man
+mkdir /usr/local/httpd/conf
