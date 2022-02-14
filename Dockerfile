@@ -6,17 +6,15 @@ RUN chmod 755 /usr/local/src/build_target.sh
 RUN chmod 755 /usr/local/src/get_deps.sh
 RUN /usr/local/src/build_target.sh
 
-FROM ubuntu:bionic AS install
-COPY --from=build /usr/local/httpd /usr/local/httpd/
-COPY --from=build /usr/local/subversion /usr/local/subversion/
-
-COPY entrypoint_httpd.sh /usr/local/httpd/bin/entrypoint.sh
 COPY httpd.conf /usr/local/httpd/conf/httpd.conf
 COPY httpd-svn.conf /usr/local/httpd/conf/httpd-svn.conf
-RUN chmod 755 /usr/local/httpd/bin/entrypoint.sh
-
+COPY entrypoint_httpd.sh /usr/local/httpd/bin/entrypoint.sh
 COPY entrypoint_svnserve.sh /usr/local/subversion/bin/entrypoint.sh
+RUN chmod 755 /usr/local/httpd/bin/entrypoint.sh
 RUN chmod 755 /usr/local/subversion/bin/entrypoint.sh
+
+FROM ubuntu:bionic AS install
+COPY --from=build /usr/local/httpd /usr/local/subversion /usr/local/.
 
 RUN set -eux;                                                                 \
     apt-get update;                                                           \
@@ -37,3 +35,4 @@ RUN set -eux; \
 
 EXPOSE 80 3690
 
+CMD ["/usr/local/httpd/bin/entrypoint.sh"]
