@@ -14,17 +14,18 @@ RUN chmod 755 /usr/local/httpd/bin/entrypoint.sh
 RUN chmod 755 /usr/local/subversion/bin/entrypoint.sh
 
 FROM ubuntu:bionic AS install
-COPY --from=build /usr/local/httpd /usr/local/subversion /usr/local/.
+COPY --from=build /usr/local/httpd /usr/local/httpd
+COPY --from=build /usr/local/subversion /usr/local/subversion
 
 RUN set -eux;                                                                 \
     apt-get update;                                                           \
     apt-get install -y                                                        \
-        libsasl2-2;                                                           \
+        libsasl2-2                                                            \
+        libldap-2.4-2;                                                         \
     apt-get -y clean;                                                         \
     rm -rf /var/lib/apt/lists/*
 
-ENV LD_LIBRARY_PATH /usr/local/httpd/lib
-ENV LD_LIBRARY_PATH /usr/local/subversion/lib
+ENV LD_LIBRARY_PATH /usr/local/httpd/lib:/usr/local/subversion/lib:$LD_LIBRARY_PATH
 RUN ldconfig
 
 RUN set -eux; \

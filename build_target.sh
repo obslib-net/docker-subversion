@@ -119,6 +119,7 @@ cd ${HTTPD_SOURCE}
             --with-apr=/usr/local/httpd                         \
             --with-apr-util=/usr/local/httpd                    \
             --with-ssl=/usr/local/httpd                         \
+            --with-z=/usr/local/httpd                           \
             --enable-so                                         \
             --enable-module=so                                  \
             --with-pcre=/usr/local/httpd/bin/pcre-config        \
@@ -149,7 +150,7 @@ cd ..
 ## config
 rm -r -f /usr/local/subversion/share
 rm -r -f /usr/local/httpd/share
-rm -r -f /usr/local/httpd/conf
+rm -r -f /usr/local/httpd/conf/extra
+rm -r -f /usr/local/httpd/conf/original
 rm -r -f /usr/local/httpd/manual
 rm -r -f /usr/local/httpd/man
-mkdir /usr/local/httpd/conf
