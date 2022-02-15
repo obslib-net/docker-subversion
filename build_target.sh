@@ -17,11 +17,6 @@ EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -
 APR_SOURCE=apr-${APR_VERSION}
 APR_UTIL_SOURCE=apr-util-${APR_UTIL_VERSION}
 
-## CYRUS_SASL BUILD
-
-## SUBVERSION BUILD
-
-
 ## SUBVERSION
 SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
 SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
