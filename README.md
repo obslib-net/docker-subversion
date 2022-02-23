@@ -10,6 +10,8 @@ latest version is 1.14.1
 # svnserve
 svn protocol server (svn://)
 
+## applicaion path
+    /usr/local/subversion
 ## execute
     mkdir -p /var/svn
     docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:svnserve-latest-0
@@ -27,13 +29,13 @@ svn protocol server (svn://)
 | **name** | **version** | **remark** |
 |:---:|:---:|:---:|
 | zlib | 1.2.11 | |
+| expat |2.4.6 | |
+| openssl |1.1.1m | |
 | apr | 1.7.0 | |
 | apr-util | 1.6.1 | |
-| expat |2.4.4 | |
-| sqlite-amalgamation | 3.37.2 | |
-
-## applicaion path
-    /usr/local/subversion
+| pcre | 8.45 | |
+| httpd | 2.4.52 | |
+| sqlite-amalgamation | 3.38.0 | |
 
 # optional
 ## sasl settings
