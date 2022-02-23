@@ -1,28 +1,12 @@
-# project
-* Where to file issues: https://github.com/obslib-net/docker-subversion/issues
-* DockerHub: https://hub.docker.com/r/obslib/subversion
-* Supported architectures: amd64, arm64v8
-
-# subversion server
-build from source code
+# Subversion server
+Subversion is an open source version control system. 
+docker build from source code(latest stable packages).
 latest version is 1.14.1
 
-# svnserve
-svn protocol server (svn://)
-
-## applicaion path
-    /usr/local/subversion
-## execute
-    mkdir -p /var/svn
-    docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:svnserve-latest-0
-
-## authentication
-* password file
-* sasl (optional)
-
-## default
-* repository path : /var/svn
-* svn listening on port : 3690
+# Project
+* Where to file issues: https://github.com/obslib-net/docker-subversion/issues
+* Supported architectures: amd64, arm64v8, arm32v7
+* DockerHub: https://hub.docker.com/r/obslib/subversion
 
 ## build source code list and version
 ### dependency lib
@@ -36,6 +20,28 @@ svn protocol server (svn://)
 | pcre | 8.45 | |
 | httpd | 2.4.52 | |
 | sqlite-amalgamation | 3.38.0 | |
+| subversion | 1.14.1 | |
+
+
+# How to use this image
+## svnserve
+svn protocol server (svn://)
+
+### execute
+    mkdir -p /var/svn
+    docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:svnserve-latest-0
+
+### container setting
+* repository path : /var/svn
+* svn protocol listening on port : 3690
+* sasl2 link path: /var/run/saslauthd
+
+### authentication
+* password file
+* sasl (optional)
+
+## applicaion path
+    /usr/local/subversion
 
 # optional
 ## sasl settings
@@ -44,7 +50,6 @@ please link /var/run/saslauthd
 ### sasl settings example1 (use sasldb)
 <details>
 
-* repo : /var/svn
 * saslauthd : /var/run/saslauthd
 * sasldb : /etc/sasldb2
 
@@ -94,7 +99,6 @@ please link /var/run/saslauthd
 
        docker run -it --rm -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve-temp obslib/subversion:svnserve-latest-0
        docker stop svnserve-temp
-       docker rmi svnserve-temp
 
 7. comment off subversion conf use-sasl(`/var/svn/repos/conf/svnserve.conf`)
 
@@ -162,7 +166,6 @@ please link /var/run/saslauthd
 ### sasl settings example2 (use ldap)
 <details>
 
-* repo : /var/svn
 * saslauthd : /var/run/saslauthd
 * ldap-server : devldap
 
@@ -216,7 +219,6 @@ please link /var/run/saslauthd
 
        docker run -it --rm -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve-temp obslib/subversion:svnserve-latest-0
        docker stop svnserve-temp
-       docker rmi svnserve-temp
 
 7. comment off subversion conf use-sasl(`/var/svn/repos/conf/svnserve.conf`)
 
