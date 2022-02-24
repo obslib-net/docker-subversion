@@ -22,38 +22,51 @@ latest version is 1.14.1
 | sqlite-amalgamation | 3.38.0 | |
 | subversion | 1.14.1 | |
 
+## module applicaion path
+    /usr/local/subversion : subversion home(svnserve) (use svn://)
+    /usr/local/http : http home(http - mod_dav_svn) (use http://) (in preparation)
+
+## container setting
+* svn protocol listening on port : 3690
+* http protocol listening on port : 80
+* repository path : /var/svn/repos
+* svnserve settings : /var/svn/repos/conf/svnserve.conf (use svnserve)
+* sasl2 link path: /var/run/saslauthd (use svnserve and sasl2)
+* http - mod_dav_svn settings : /var/svn/repos/conf/httpd-svn.conf (use http - mod_dav_svn)
 
 # How to use this image
-## svnserve
-svn protocol server (svn://)
-
+## use svn:// (svnserve)
 ### execute
     mkdir -p /var/svn
     docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:svnserve-latest-0
+## use http:// (http - mod_dav_svn)
+### execute
+    mkdir -p /var/svn
+    docker run -it -p 80:80 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:http-svn-latest-0
 
-### container setting
-* repository path : /var/svn
-* svn protocol listening on port : 3690
-* sasl2 link path: /var/run/saslauthd
 
-### authentication
-* password file
+# container details
+<details>
+
+# svnserve
+svn protocol server (svn://)
+
+## authentication
+* password file : /var/svn/repos/conf/passwd
 * sasl (optional)
 
-## applicaion path
-    /usr/local/subversion
-
-# optional
-## sasl settings
+## optional
+### sasl settings
 please link /var/run/saslauthd
 
-### sasl settings example1 (use sasldb)
+
+#### sasl settings example1 (use sasldb)
 <details>
 
 * saslauthd : /var/run/saslauthd
 * sasldb : /etc/sasldb2
 
-#### initial settings (only first time)
+##### initial settings (only first time)
 1. cd work dir
 
        cd ${your/svn/work/dir}
@@ -144,12 +157,12 @@ please link /var/run/saslauthd
            restart: always
 
 
-#### start docker compose
+##### start docker compose
 
     cd ${your/svn/work/dir}
     docker-compose up -d
 
-#### user add
+##### user add
 
     docker exec -it docker-saslauthd_saslauthd_1 bash
 
@@ -157,19 +170,20 @@ please link /var/run/saslauthd
     /usr/sbin/sasldblistusers2
     /usr/sbin/testsaslauthd -u harry -p harryssecret -r "My First Repository"
 
-#### stop docker compose
+##### stop docker compose
 
     cd ${your/svn/work/dir}
     docker-compose down
 </details>
 
-### sasl settings example2 (use ldap)
+
+#### sasl settings example2 (use ldap)
 <details>
 
 * saslauthd : /var/run/saslauthd
 * ldap-server : devldap
 
-#### initial settings (only first time)
+##### initial settings (only first time)
 1. cd work dir
 
        cd ${your/svn/work/dir}
@@ -263,20 +277,20 @@ please link /var/run/saslauthd
            restart: always
 
 
-#### start docker compose
+##### start docker compose
 
     cd ${your/svn/work/dir}
     docker-compose up -d
 
-#### user auth check
+##### user auth check
 
     docker exec -it docker-saslauthd_saslauthd_1 bash
 
     /usr/sbin/testsaslauthd -u harry -p harryssecret
 
-#### stop docker compose
+##### stop docker compose
 
     cd ${your/svn/work/dir}
     docker-compose down
 </details>
-</section>
+</details>
