@@ -24,11 +24,11 @@ latest version is 1.14.1
 
 ## module applicaion path
     /usr/local/subversion : subversion home(svnserve) (use svn://)
-    /usr/local/http : http home(http - mod_dav_svn) (use http://) (in preparation)
+    /usr/local/http : http home(httpd - mod_dav_svn) (use http://) (in preparation)
 
 ## container setting
-* svn protocol listening on port : 3690
-* http protocol listening on port : 80
+* svn protocol listening on port : 3690 (repository url : svn://container)
+* http protocol listening on port : 80 (repository url : http://container/repos)
 * repository path : /var/svn/repos
 * svnserve settings : /var/svn/repos/conf/svnserve.conf (use svnserve)
 * sasl2 link path: /var/run/saslauthd (use svnserve and sasl2)
@@ -42,13 +42,13 @@ latest version is 1.14.1
 ## use http:// (http - mod_dav_svn)
 ### execute
     mkdir -p /var/svn
-    docker run -it -p 80:80 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:http-svn-latest-0
+    docker run -it -p 80:80 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:httpd-svn-latest-0
 
 
 # container details
+## svnserve
 <details>
 
-# svnserve
 svn protocol server (svn://)
 
 ## authentication
@@ -293,4 +293,15 @@ please link /var/run/saslauthd
     cd ${your/svn/work/dir}
     docker-compose down
 </details>
+</details>
+
+## httpd - mod_dav_svn
+<details>
+
+http protocol server (use http://)
+
+## authentication
+* password file : /var/svn/repos/conf/.htpasswd
+* ldap (optional)
+
 </details>
