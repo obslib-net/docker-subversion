@@ -42,7 +42,7 @@ latest version is 1.14.1
 ## use http:// (http - mod_dav_svn)
 ### execute
     mkdir -p /var/svn
-    docker run -it -p 80:80 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:httpd-svn-latest-0
+    docker run -it -p 80:80 -v /var/svn:/var/svn -d --name httpd_svn obslib/subversion:httpd_svn-latest-1
 
 
 # container details
@@ -302,6 +302,14 @@ http protocol server (use http://)
 
 ## authentication
 * password file : /var/svn/repos/conf/.htpasswd
-* ldap (optional)
+    ```
+    docker exec -it httpd_svn bash
+    /usr/local/httpd/bin/htpasswd  -c /var/svn/repos/conf/.htpasswd harry
+    New password: harryssecret
+    Re-type new password: harryssecret
+    Adding password for user harry
+    exit
+    ```
 
+* ldap (optional)
 </details>
