@@ -5,7 +5,7 @@ latest version is 1.14.1
 
 # Project
 * Where to file issues: https://github.com/obslib-net/docker-subversion/issues
-* Supported architectures: amd64, arm64v8, arm32v7
+* Supported architectures: i386, amd64, arm32v7, arm64v8
 * DockerHub: https://hub.docker.com/r/obslib/subversion
 
 ## build source code list and version
@@ -22,9 +22,14 @@ latest version is 1.14.1
 | sqlite-amalgamation | 3.38.0 | |
 | subversion | 1.14.1 | |
 
+
+## type
+* httpd_svn : httpd(apache) + mod_dav_svn (use http://)
+* svnserve : subversion standalone server (use svn://)
+
 ## module applicaion path
-    /usr/local/subversion : subversion home(svnserve) (use svn://)
-    /usr/local/http : http home(httpd - mod_dav_svn) (use http://) (in preparation)
+    httpd : /usr/local/http
+    subversion : /usr/local/subversion
 
 ## container setting
 * svn protocol listening on port : 3690 (repository url : svn://container)
@@ -43,7 +48,15 @@ latest version is 1.14.1
 ### execute
     mkdir -p /var/svn
     docker run -it -p 80:80 -v /var/svn:/var/svn -d --name httpd_svn obslib/subversion:httpd_svn-latest-1
-
+    # default subversion uid : 999
+    # if you want change uid
+    #   change /usr/local/httpd/conf/httpd.conf
+    #   <IfModule unixd_module>
+    #       User subversion
+    #       Group subversion
+    #   </IfModule>
+    # or
+    #   change /etc/passwd
 
 # container details
 ## svnserve
@@ -312,4 +325,5 @@ http protocol server (use http://)
     ```
 
 * ldap (optional)
+    please eehit /var/svn/repos/conf/httpd-svn.conf
 </details>
