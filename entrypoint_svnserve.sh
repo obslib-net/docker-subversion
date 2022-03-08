@@ -10,5 +10,10 @@ if [[ ! -d ${SUBVERSION_REPOS} ]]; then
     chown -R subversion:subversion ${SUBVERSION_REPOS}
 fi
 
+if [[ ! -e /usr/local/httpd/conf/server.crt ]]; then
+    /usr/local/httpd/bin/openssl req -x509 -sha256 -nodes -newkey rsa:2048 -keyout /usr/local/httpd/conf/server.key -out /usr/local/httpd/conf/server.crt -days 36500 -subj /CN=localhost
+fi
+
+
 /usr/local/subversion/bin/svnserve --daemon --foreground --root=${SUBVERSION_REPOS}
 
