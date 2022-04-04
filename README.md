@@ -10,17 +10,18 @@ latest version is 1.14.1
 
 ## build source code list and version
 ### dependency lib
-| **name** | **version** | **remark** |
-|:---:|:---:|:---:|
-| zlib | 1.2.11 | |
-| expat |2.4.7 | |
-| openssl |1.1.1m | |
-| apr | 1.7.0 | |
-| apr-util | 1.6.1 | |
-| pcre | 8.45 | |
-| httpd | 2.4.52 | |
-| sqlite-amalgamation | 3.38.0 | |
-| subversion | 1.14.1 | |
+| **name** | **version** | **image update** | **remark** |
+|:---:|:---:|:---:|:---:|
+| base-image          | 18.04  | **2022-04-04** | ubuntu:bionic |
+| zlib                | 1.2.12 | **2022-04-04** | |
+| expat               | 2.4.8  | **2022-04-04** | |
+| openssl             | 1.1.1n | **2022-04-04** | httpd_svn only |
+| apr                 | 1.7.0  |   2021-02-23   | |
+| apr-util            | 1.6.1  |   2021-02-23   | |
+| pcre                | 8.45   |   2022-02-23   | httpd_svn only |
+| httpd               | 2.4.53 | **2022-04-04** | httpd_svn only |
+| sqlite-amalgamation | 3.38.2 | **2022-04-04** | |
+| subversion          | 1.14.1 |   2021-02-23   | |
 
 ## applicaion path
 * httpd : /usr/local/http
