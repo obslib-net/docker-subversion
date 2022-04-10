@@ -24,25 +24,25 @@ latest version is 1.14.1
 | subversion          | 1.14.1 |   2021-02-23   | |
 
 ## applicaion path
-* httpd : /usr/local/http
 * subversion : /usr/local/subversion
+* httpd : /usr/local/http
 
 ## service type
-* httpd_svn : httpd(apache) + mod_dav_svn (use http://)
 * svnserve : subversion standalone server (use svn://)
+* httpd_svn : httpd(apache) + mod_dav_svn (use http://)
 
 ## container setting
 * repository path : /var/svn/repos
-
-### container setting - httpd_svn
-* http protocol listening on port : 80 (repository url : http://container/repos)
-* mod_dav_svn settings : /var/svn/repos/conf/httpd-svn.conf (mod_dav_svn path setting)
-* mod_authz_svn settings : /var/svn/repos/conf/svnserve.conf (mod_authz_svn module AuthzSVNAccessFile directive)
 
 ### container setting - svnserve
 * svn protocol listening on port : 3690 (repository url : svn://container)
 * svnserve settings : /var/svn/repos/conf/svnserve.conf (svnserve)
 * sasl2 link path: /var/run/saslauthd (use svnserve and sasl2)
+
+### container setting - httpd_svn
+* http protocol listening on port : 80 (repository url : http://container/repos)
+* mod_dav_svn settings : /var/svn/repos/conf/httpd-svn.conf (mod_dav_svn path setting)
+* mod_authz_svn settings : /var/svn/repos/conf/svnserve.conf (mod_authz_svn module AuthzSVNAccessFile directive)
 
 # How to use this image
 ## use svn:// (svnserve)
@@ -62,8 +62,11 @@ docker run -it -p 80:80 -v /var/svn:/var/svn -d --name httpd_svn obslib/subversi
 #### directory permission
 * execute uid : 999 (subversion user)
 
-##### If you want to change permission
-* example 1. passwd, group file change to 1000
+##### If you want to change permission 999 change to 1000
+
+* example 1.
+create passwd, group file
+
 1. create dir of host side(`/var/svn/etc`)
 ```
 sudo mkdir -p /var/svn/etc
