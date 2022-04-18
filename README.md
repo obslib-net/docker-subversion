@@ -1,7 +1,7 @@
 # Subversion server
 Subversion is an open source version control system. 
 docker build from source code(latest stable packages).
-latest version is 1.14.1
+latest version is 1.14.2(1.10.8)
 
 # Project
 * Where to file issues: https://github.com/obslib-net/docker-subversion/issues
@@ -12,16 +12,16 @@ latest version is 1.14.1
 ### dependency lib
 | **name** | **version** | **image update** | **remark** |
 |:---:|:---:|:---:|:---:|
-| base-image          | 18.04  | **2022-04-04** | ubuntu:bionic |
-| zlib                | 1.2.12 | **2022-04-04** | |
-| expat               | 2.4.8  | **2022-04-04** | |
-| openssl             | 1.1.1n | **2022-04-04** | httpd_svn only |
+| base-image          | 18.04  | **2022-04-18** | ubuntu:bionic |
+| zlib                | 1.2.12 |   2022-04-04   | |
+| expat               | 2.4.8  |   2022-04-04   | |
+| openssl             | 1.1.1n |   2022-04-04   | httpd_svn only |
 | apr                 | 1.7.0  |   2021-02-23   | |
 | apr-util            | 1.6.1  |   2021-02-23   | |
 | pcre                | 8.45   |   2022-02-23   | httpd_svn only |
-| httpd               | 2.4.53 | **2022-04-04** | httpd_svn only |
-| sqlite-amalgamation | 3.38.2 | **2022-04-04** | |
-| subversion          | 1.14.1 |   2021-02-23   | |
+| httpd               | 2.4.53 |   2022-04-04   | httpd_svn only |
+| sqlite-amalgamation | 3.38.2 |   2022-04-04   | |
+| subversion          | 1.14.2 | **2022-04-18** | |
 
 ## applicaion path
 * subversion : /usr/local/subversion
@@ -46,16 +46,41 @@ latest version is 1.14.1
 
 # How to use this image
 ## use svn:// (svnserve)
-### execute
+### initial setting
+host side.
 ```
 sudo mkdir -p /var/svn
-docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:svnserve-latest-0
+docker pull obslib/subversion:svnserve-latest-0
+docker run -it  --rm -v /var/svn:/var/svn --name svnserve obslib/subversion:svnserve-latest-0 /bin/bash
+```
+container side.
+```
+/usr/local/subversion/bin/svnadmin create /var/svn/repos
+```
+
+### execute
+```
+docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:httpd_svn-latest-1
 ```
 
 ## use http:// (httpd_svn)
-### execute
+### initial setting
+host side.
 ```
 sudo mkdir -p /var/svn
+docker pull obslib/subversion:httpd_svn-latest-1
+docker run -it  --rm -v /var/svn:/var/svn --name httpd_svn obslib/subversion:httpd_svn-latest-1 /bin/bash
+```
+
+container side.
+```
+/usr/local/subversion/bin/svnadmin create /var/svn/repos
+cp /usr/local/httpd/conf/httpd-svn.conf /var/svn/repos/conf/httpd-svn.conf
+```
+
+
+### execute
+```
 docker run -it -p 80:80 -v /var/svn:/var/svn -d --name httpd_svn obslib/subversion:httpd_svn-latest-1
 ```
 
