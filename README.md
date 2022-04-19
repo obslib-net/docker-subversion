@@ -60,7 +60,7 @@ container side.
 
 ### execute
 ```
-docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:httpd_svn-latest-1
+docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subversion:svnserve-latest-0
 ```
 
 ## use http:// (httpd_svn)
