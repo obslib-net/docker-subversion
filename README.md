@@ -15,12 +15,12 @@ latest version is 1.14.2(1.10.8)
 | base-image          | 18.04  |                | ubuntu:bionic |
 | zlib                | 1.2.12 |   2022-04-04   | |
 | expat               | 2.4.8  |   2022-04-04   | |
-| openssl             | 1.1.1p | **2022-06-27** | httpd_svn only |
+| openssl             | 1.1.1q |   2022-08-25   | httpd_svn only |
 | apr                 | 1.7.0  |   2021-02-23   | |
 | apr-util            | 1.6.1  |   2021-02-23   | |
 | pcre                | 8.45   |   2022-02-23   | httpd_svn only |
 | httpd               | 2.4.54 |   2022-06-14   | httpd_svn only |
-| sqlite-amalgamation | 3.39.0 | **2022-06-27** | |
+| sqlite-amalgamation | 3.39.2 |   2022-08-25   | |
 | subversion          | 1.14.2 |   2022-04-18   | |
 
 ## applicaion path
