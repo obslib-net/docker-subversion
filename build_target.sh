@@ -17,7 +17,7 @@ OPENSSL_SOURCE=openssl-${OPENSSL_VERSION}
 ## HTTPD
 APR_SOURCE=apr-${APR_VERSION}
 APR_UTIL_SOURCE=apr-util-${APR_UTIL_VERSION}
-PCRE_SOURCE=pcre-${PCRE_VERSION}
+PCRE2_SOURCE=pcre2-${PCRE2_VERSION}
 HTTPD_SOURCE=httpd-${HTTPD_VERSION}
 
 ## SUBVERSION
@@ -34,7 +34,8 @@ wget https://www.openssl.org/source/${OPENSSL_SOURCE}.tar.gz
 ## HTTPD
 wget https://dist.apache.org/repos/dist/release/apr/${APR_SOURCE}.tar.gz
 wget https://dist.apache.org/repos/dist/release/apr/${APR_UTIL_SOURCE}.tar.gz
-wget --content-disposition https://sourceforge.net/projects/pcre/files/pcre/${PCRE_VERSION}/${PCRE_SOURCE}.tar.gz/download
+wget https://github.com/PCRE2Project/pcre2/releases/download/${PCRE2_SOURCE}/${PCRE2_SOURCE}.tar.gz
+
 wget https://dist.apache.org/repos/dist/release/httpd/${HTTPD_SOURCE}.tar.gz
 
 
@@ -106,8 +107,8 @@ make
 make install
 cd ..
 
-tar zxvf ${PCRE_SOURCE}.tar.gz
-cd ${PCRE_SOURCE}
+tar zxvf ${PCRE2_SOURCE}.tar.gz
+cd ${PCRE2_SOURCE}
 ./configure --prefix=/usr/local/httpd
 make
 make install
@@ -122,7 +123,7 @@ cd ${HTTPD_SOURCE}
             --with-z=/usr/local/httpd                           \
             --enable-so                                         \
             --enable-module=so                                  \
-            --with-pcre=/usr/local/httpd/bin/pcre-config        \
+            --with-pcre=/usr/local/httpd/bin/pcre2-config       \
             --enable-mods-shared="reallyall"
 make
 make install
