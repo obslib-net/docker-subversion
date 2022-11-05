@@ -12,7 +12,7 @@ apt-get install -y unzip wget
 ## BASE
 ZLIB_SOURCE=zlib-${ZLIB_VERSION}
 EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
-OPENSSL_SOURCE=openssl-${OPENSSL_VERSION}
+LIBRESSL_SOURCE=libressl-${LIBRESSL_VERSION}
 
 ## HTTPD
 APR_SOURCE=apr-${APR_VERSION}
@@ -28,8 +28,7 @@ SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
 ## BASE
 wget https://www.zlib.net/${ZLIB_SOURCE}.tar.gz
 wget https://github.com/libexpat/libexpat/releases/download/${EXPAT_PREFIX}/${EXPAT_SOURCE}.tar.gz
-wget https://www.openssl.org/source/${OPENSSL_SOURCE}.tar.gz
-
+wget https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/${LIBRESSL_SOURCE}.tar.gz
 
 ## HTTPD
 wget https://dist.apache.org/repos/dist/release/apr/${APR_SOURCE}.tar.gz
@@ -75,12 +74,9 @@ make
 make install
 cd ..
 
-tar zxvf ${OPENSSL_SOURCE}.tar.gz
-cd ${OPENSSL_SOURCE}
-./config    --prefix=/usr/local/httpd                          \
-            --with-zlib-include=/usr/local/httpd/include       \
-            --with-zlib-lib=/usr/local/httpd/lib               \
-            shared zlib-dynamic
+tar zxvf ${LIBRESSL_SOURCE}.tar.gz
+cd ${LIBRESSL_SOURCE}
+./configure --prefix=/usr/local/httpd
 make
 make install
 cd ..
