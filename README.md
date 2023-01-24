@@ -13,14 +13,14 @@ latest version is 1.14.2(1.10.8)
 | **name** | **version** | **image update** | **remark** |
 |:---:|:---:|:---:|:---:|
 | base-image          | 18.04  |                | ubuntu:bionic |
-| zlib                | 1.2.13 | **2022-10-26** | |
-| expat               | 2.4.9  | **2022-10-26** | |
-| openssl             | 1.1.1q |   2022-08-25   | httpd_svn only |
+| zlib                | 1.2.13 |   2022-10-26   | |
+| expat               | 2.5.0  | **2023-01-24** | |
+| libressl            | 3.7.0  | **2023-01-24** | httpd_svn only |
 | apr                 | 1.7.0  |   2021-02-23   | |
 | apr-util            | 1.6.1  |   2021-02-23   | |
-| pcre2               | 10.39  | **2022-10-26** | httpd_svn only |
-| httpd               | 2.4.54 |   2022-06-14   | httpd_svn only |
-| sqlite-amalgamation | 3.39.4 | **2022-10-26** | |
+| pcre2               | 10.40  | **2023-01-24** | httpd_svn only |
+| httpd               | 2.4.55 | **2023-01-24** | httpd_svn only |
+| sqlite-amalgamation | 3.40.1 | **2023-01-24** | |
 | subversion          | 1.14.2 |   2022-04-18   | |
 
 ## applicaion path
