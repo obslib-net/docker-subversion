@@ -8,6 +8,8 @@ latest version is 1.14.2(1.10.8)
 * Supported architectures: i386, amd64, arm32v7, arm64v8
 * DockerHub: https://hub.docker.com/r/obslib/subversion
 
+
+
 ## build source code list and version
 ### dependency lib
 | **name** | **version** | **image update** | **remark** |
@@ -29,7 +31,17 @@ latest version is 1.14.2(1.10.8)
 
 ## service type
 * svnserve : subversion standalone server (use svn://)
+    | **version**    | **github branch(URL)**                                                                           |
+    |:---------------|:-------------------------------------------------------------------------------------------------|
+    | 1.10.x         | [r0/svnserve/v1.10](https://github.com/obslib-net/docker-subversion/tree/r0/svnserve/v1.10)      |
+    | 1.14.x         | [r0/svnserve/v1.14](https://github.com/obslib-net/docker-subversion/tree/r0/svnserve/v1.14)      |
+
+
 * httpd_svn : httpd(apache) + mod_dav_svn (use http://)
+    | **version**    | **github branch(URL)**                                                                           |
+    |:---------------|:-------------------------------------------------------------------------------------------------|
+    | 1.10.x         | [r1/httpd_svn/v1.10](https://github.com/obslib-net/docker-subversion/tree/r1/httpd_svn/v1.10)    |
+    | 1.14.x         | [r1/httpd_svn/v1.14](https://github.com/obslib-net/docker-subversion/tree/r1/httpd_svn/v1.14)    |
 
 ## container setting
 * repository path : /var/svn/repos
