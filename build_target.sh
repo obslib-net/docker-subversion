@@ -34,7 +34,7 @@ wget https://dist.apache.org/repos/dist/release/apr/${APR_UTIL_SOURCE}.tar.gz
 wget https://www.sqlite.org/${SQLITE_VERSION_REL_YEAR}/${SQLITE_SOURCE}.zip
 
 ## SUBVERSION
-wget https://dist.apache.org/repos/dist/release/subversion/${SUBVERSION_SOURCE}.tar.gz
+wget https://archive.apache.org/dist/subversion/${SUBVERSION_SOURCE}.tar.gz
 
 # install extend lib
 apt-get install -y libsasl2-dev

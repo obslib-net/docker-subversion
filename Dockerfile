@@ -12,12 +12,16 @@ RUN chmod 755 /usr/local/subversion/bin/entrypoint.sh
 FROM ubuntu:bionic AS install
 COPY --from=build /usr/local/subversion /usr/local/subversion
 
-RUN apt-get update && apt-get install -y                    \
-    libsasl2-2                                              \
- && apt-get -y clean                                        \
- && rm -rf /var/lib/apt/lists/*
-ENV LD_LIBRARY_PATH /usr/local/subversion/lib
-RUN ldconfig
+ENV LD_LIBRARY_PATH /usr/local/subversion/lib:$LD_LIBRARY_PATH
+
+RUN set -eux                                                                  \
+ && apt-get update                                                            \
+ && apt-get install -y                                                        \
+        libsasl2-2                                                            \
+ && apt-get -y clean                                                          \
+ && rm -rf /var/lib/apt/lists/*                                               \
+ && mkdir -p /var/svn                                                         \
+ && ldconfig
 
 EXPOSE 3690
 
