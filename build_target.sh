@@ -40,7 +40,7 @@ wget https://dist.apache.org/repos/dist/release/httpd/${HTTPD_SOURCE}.tar.gz
 
 ## SUBVERSION
 wget https://www.sqlite.org/${SQLITE_VERSION_REL_YEAR}/${SQLITE_SOURCE}.zip
-wget https://dist.apache.org/repos/dist/release/subversion/${SUBVERSION_SOURCE}.tar.gz
+wget https://archive.apache.org/dist/subversion/${SUBVERSION_SOURCE}.tar.gz
 
 # INSTALL EXTEND LIB
 apt-get install -y libsasl2-dev libldap2-dev

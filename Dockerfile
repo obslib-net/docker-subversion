@@ -18,22 +18,20 @@ FROM ubuntu:bionic AS install
 COPY --from=build /usr/local/subversion /usr/local/subversion
 COPY --from=build /usr/local/httpd /usr/local/httpd
 
-RUN set -eux;                                                                 \
-    apt-get update;                                                           \
-    apt-get install -y                                                        \
-        libsasl2-2                                                            \
-        libldap-2.4-2;                                                         \
-    apt-get -y clean;                                                         \
-    rm -rf /var/lib/apt/lists/*
-
 ENV LD_LIBRARY_PATH /usr/local/subversion/lib:/usr/local/httpd/lib:$LD_LIBRARY_PATH
-RUN ldconfig
 
-RUN set -eux; \
-    groupadd -r --gid=999 subversion; \
-    useradd -r -g subversion --uid=999 --home-dir=/var/svn subversion; \
-    mkdir -p /var/svn; \
-    chown -R subversion:subversion /var/svn
+RUN set -eux                                                                  \
+ && apt-get update                                                            \
+ && apt-get install -y                                                        \
+        libsasl2-2                                                            \
+        libldap-2.4-2                                                         \
+ && apt-get -y clean                                                          \
+ && rm -rf /var/lib/apt/lists/*                                               \
+ && groupadd -r --gid=999 subversion                                          \
+ && useradd -r -g subversion --uid=999 --home-dir=/var/svn subversion         \
+ && mkdir -p /var/svn                                                         \
+ && chown -R subversion:subversion /var/svn                                   \
+ && ldconfig
 
 EXPOSE 80 3690
 
