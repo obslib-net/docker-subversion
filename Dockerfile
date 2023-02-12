@@ -31,7 +31,7 @@ RUN set -eux                                                                  \
  && groupadd -r --gid=999 svn                                                 \
  && useradd -r -g svn --uid=999 --home-dir=/var/svn subversion                \
  && mkdir -p /var/svn                                                         \
- && chown -R subversion:subversion /var/svn                                   \
+ && chown -R svn:svn /var/svn                                                 \
  && ldconfig
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
