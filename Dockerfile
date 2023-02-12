@@ -27,8 +27,6 @@ RUN set -eux                                                                  \
         libldap-2.4-2                                                         \
  && apt-get -y clean                                                          \
  && rm -rf /var/lib/apt/lists/*                                               \
- && groupadd -r --gid=999 subversion                                          \
- && useradd -r -g subversion --uid=999 --home-dir=/var/svn subversion         \
  && mkdir -p /var/svn                                                         \
  && chown -R subversion:subversion /var/svn                                   \
  && ldconfig
