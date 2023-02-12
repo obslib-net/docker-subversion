@@ -29,7 +29,7 @@ RUN set -eux                                                                  \
  && apt-get -y clean                                                          \
  && rm -rf /var/lib/apt/lists/*                                               \
  && groupadd -r --gid=999 svn                                                 \
- && useradd -r -g svn --uid=999 --home-dir=/var/svn subversion                \
+ && useradd -r -g svn --uid=999 --home-dir=/var/svn svn                       \
  && mkdir -p /var/svn                                                         \
  && chown -R svn:svn /var/svn                                                 \
  && ldconfig
