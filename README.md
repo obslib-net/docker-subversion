@@ -78,67 +78,26 @@ docker run -it -p 3690:3690 -v /var/svn:/var/svn -d --name svnserve obslib/subve
 
 ## use http:// (httpd_svn)
 ### initial setting (create repos)
+* directory access permission : 33 (www-data user)
+
 host side.
 ```
 sudo mkdir -p /var/svn
-sudo chown -R 999:999 /var/svn
 docker pull obslib/subversion:httpd_svn-latest-1
 docker run -it  --rm -v /var/svn:/var/svn --name httpd_svn obslib/subversion:httpd_svn-latest-1 /bin/bash
 ```
 
 container side.
 ```
-su subversion
 /usr/local/subversion/bin/svnadmin create /var/svn/repos
 cp /usr/local/httpd/conf/httpd-svn.conf /var/svn/repos/conf/httpd-svn.conf
+chown -R www-data:www-data /var/svn
 ```
 
 
 ### execute
 ```
 docker run -it -p 80:80 -v /var/svn:/var/svn -d --name httpd_svn obslib/subversion:httpd_svn-latest-1
-```
-
-#### directory permission setting
-* execute uid : 999 (subversion user)
-
-##### If you want to change permission 999 change to 1000
-* example 1.
-create passwd, group file
-
-1. create dir of host side(`/var/svn/etc`)	
-```
-sudo mkdir -p /var/svn/etc
-```
-
-2. create group file (`/var/svn/etc/group`)
-```
-sudo vi /var/svn/etc/group
-```
-```
-root:x:0:
-subversion:x:1000:
-```
-
-3. create passwd file (`/var/svn/etc/passwd`)
-```
-sudo vi /var/svn/etc/passwd
-```
-```
-root:x:0:0:root:/root:/bin/bash
-subversion:x:1000:1000:,,,:/var/svn:/bin/bash
-```
-
-4. change owner
-```
-sudo chown -R 1000:1000 /var/svn/repos
-```
-
-5. execute
-```
-docker run -v /var/svn/etc/passwd:/etc/passwd                         \
-           -v /var/svn/etc/group:/etc/group                           \
-           -it --rm -p 80:80 -v /var/svn:/var/svn -d --name httpd_svn obslib/subversion:httpd_svn-latest-1
 ```
 
 # container setting details
