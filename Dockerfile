@@ -28,7 +28,6 @@ RUN set -eux                                                                  \
  && apt-get -y clean                                                          \
  && rm -rf /var/lib/apt/lists/*                                               \
  && mkdir -p /var/svn                                                         \
- && chown -R subversion:subversion /var/svn                                   \
  && ldconfig
 
 EXPOSE 80 3690
