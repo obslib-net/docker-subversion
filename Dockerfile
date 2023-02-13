@@ -34,7 +34,7 @@ RUN set -eux                                                                  \
  && chown -R svn:svn /var/svn                                                 \
  && ldconfig
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord-svn.conf /etc/supervisor/conf.d/svn.conf
 
 EXPOSE 80 3690
 
