@@ -1,5 +1,5 @@
 
-FROM ubuntu:bionic AS build
+FROM ubuntu:focal AS build
 COPY build_target.sh /usr/local/src/build_target.sh
 COPY get_deps.sh /usr/local/src/get_deps.sh
 RUN chmod 755 /usr/local/src/build_target.sh
@@ -14,7 +14,7 @@ COPY httpd-svn.conf /usr/local/httpd/conf/httpd-svn.conf
 COPY entrypoint_httpd.sh /usr/local/httpd/bin/entrypoint.sh
 RUN chmod 755 /usr/local/httpd/bin/entrypoint.sh
 
-FROM ubuntu:bionic AS install
+FROM ubuntu:focal AS install
 COPY --from=build /usr/local/subversion /usr/local/subversion
 COPY --from=build /usr/local/httpd /usr/local/httpd
 
