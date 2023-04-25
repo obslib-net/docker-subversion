@@ -9,7 +9,7 @@ RUN /usr/local/src/build_target.sh
 COPY entrypoint_svnserve.sh /usr/local/subversion/bin/entrypoint.sh
 RUN chmod 755 /usr/local/subversion/bin/entrypoint.sh
 
-FROM ubuntu:focal AS install
+FROM debian:oldstable AS install
 COPY --from=build /usr/local/subversion /usr/local/subversion
 
 ENV LD_LIBRARY_PATH /usr/local/subversion/lib:$LD_LIBRARY_PATH
