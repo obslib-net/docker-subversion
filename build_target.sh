@@ -28,7 +28,7 @@ SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
 ## BASE
 wget https://www.zlib.net/${ZLIB_SOURCE}.tar.gz
 wget https://github.com/libexpat/libexpat/releases/download/${EXPAT_PREFIX}/${EXPAT_SOURCE}.tar.gz
-wget https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/${LIBRESSL_SOURCE}.tar.gz
+wget https://cdn.openbsd.org/pub/OpenBSD/LibreSSL/${LIBRESSL_SOURCE}.tar.gz
 
 ## HTTPD
 wget https://dist.apache.org/repos/dist/release/apr/${APR_SOURCE}.tar.gz
