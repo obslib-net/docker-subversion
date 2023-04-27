@@ -14,15 +14,15 @@ latest version is 1.14.2(1.10.8)
 ### dependency lib
 | **name** | **version** | **image update** | **remark** |
 |:---:|:---:|:---:|:---:|
-| base-image          | 18.04  |                | ubuntu:bionic |
+| base-image          | -      | -              | debian:oldstable-slim |
 | zlib                | 1.2.13 |   2022-10-26   | |
 | expat               | 2.5.0  |   2023-01-24   | |
-| libressl            | 3.6.2  | **2023-02-12** | httpd_svn only |
-| apr                 | 1.7.2  | **2023-02-12** | |
-| apr-util            | 1.6.3  | **2023-02-12** | |
-| pcre2               | 10.42  | **2023-02-12** | httpd_svn only |
-| httpd               | 2.4.55 |   2023-01-24   | httpd_svn only |
-| sqlite-amalgamation | 3.40.1 |   2023-01-24   | |
+| libressl            | 3.6.2  |   2023-02-12   | httpd_svn only |
+| apr                 | 1.7.4  | **2023-04-27** | |
+| apr-util            | 1.6.3  |   2023-02-12   | |
+| pcre2               | 10.42  |   2023-02-12   | httpd_svn only |
+| httpd               | 2.4.57 | **2023-04-27** | httpd_svn only |
+| sqlite-amalgamation | 3.41.2 | **2023-04-27** | |
 | subversion          | 1.14.2 |   2022-04-18   | |
 
 ## applicaion path
