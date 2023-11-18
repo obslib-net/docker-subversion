@@ -14,7 +14,7 @@ COPY httpd-svn.conf /usr/local/httpd/conf/httpd-svn.conf
 COPY entrypoint_httpd.sh /usr/local/httpd/bin/entrypoint.sh
 RUN chmod 755 /usr/local/httpd/bin/entrypoint.sh
 
-FROM ubuntu:bionic AS install
+FROM debian:oldstable AS install
 COPY --from=build /usr/local/subversion /usr/local/subversion
 COPY --from=build /usr/local/httpd /usr/local/httpd
 
