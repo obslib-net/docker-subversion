@@ -1,7 +1,7 @@
 # Subversion server
 Subversion is an open source version control system. 
 docker build from source code(latest stable packages).
-latest version is 1.14.3(1.10.8)
+latest version is 1.14.3
 
 # Project
 * Where to file issues: https://github.com/obslib-net/docker-subversion/issues
@@ -25,23 +25,19 @@ latest version is 1.14.3(1.10.8)
 | sqlite-amalgamation | 3.45.0 | **2024-01-19** | |
 | subversion          | 1.14.3 | **2024-01-19** | |
 
+### subversion module version
+  Subversion 1.10.x end of life.
+  The currently available version is 1.14.3.
+
 ## applicaion path
 * subversion : /usr/local/subversion
-* httpd : /usr/local/http
+* httpd : /usr/local/httpd
 
 ## service type
-* svnserve : subversion standalone server (use svn://)
-    | **version**    | **github branch(URL)**                                                                           |
-    |:---------------|:-------------------------------------------------------------------------------------------------|
-    | 1.10.x         | [r0/svnserve/v1.10](https://github.com/obslib-net/docker-subversion/tree/r0/svnserve/v1.10)      |
-    | 1.14.x         | [r0/svnserve/v1.14](https://github.com/obslib-net/docker-subversion/tree/r0/svnserve/v1.14)      |
-
-
-* httpd_svn : httpd(apache) + mod_dav_svn (use http://)
-    | **version**    | **github branch(URL)**                                                                           |
-    |:---------------|:-------------------------------------------------------------------------------------------------|
-    | 1.10.x         | [r1/httpd_svn/v1.10](https://github.com/obslib-net/docker-subversion/tree/r1/httpd_svn/v1.10)    |
-    | 1.14.x         | [r1/httpd_svn/v1.14](https://github.com/obslib-net/docker-subversion/tree/r1/httpd_svn/v1.14)    |
+| **service type** | **github branch(URL)**                                                                           | ** summary (protocol) **                  |
+|:-----------------|:-------------------------------------------------------------------------------------------------|:------------------------------------------|
+| svnserve         | [r0/svnserve/v1.14](https://github.com/obslib-net/docker-subversion/tree/r0/svnserve/v1.14)      | subversion standalone server (use svn://) |
+| httpd_svn        | [r1/httpd_svn/v1.14](https://github.com/obslib-net/docker-subversion/tree/r1/httpd_svn/v1.14)    | httpd(apache) + mod_dav_svn (use http://) |
 
 ## container setting
 * repository path : /var/svn/repos
