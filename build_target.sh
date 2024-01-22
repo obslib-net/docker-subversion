@@ -105,13 +105,7 @@ cd ..
 
 tar zxvf ${PCRE2_SOURCE}.tar.gz
 cd ${PCRE2_SOURCE}
-./configure --prefix=/usr/local/httpd           \
-            --enable-unicode                    \
-            --enable-jit                        \
-            --enable-pcre2-16                   \
-            --enable-pcre2-32                   \
-            --enable-pcre2grep-libz=/usr/local/httpd \
-            --disable-static
+./configure --prefix=/usr/local/httpd
 make
 make install
 cd ..
