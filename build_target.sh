@@ -1,5 +1,7 @@
 #/bin/bash
 
+set -euxo pipefail
+
 cd /usr/local/src
 
 apt-get -y update; \
