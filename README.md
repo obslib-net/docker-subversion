@@ -1,7 +1,7 @@
 # Subversion server
 Subversion is an open source version control system. 
 docker build from source code(latest stable packages).
-latest version is 1.14.4
+latest version is 1.14.5
 
 # Project
 * Where to file issues: https://github.com/obslib-net/docker-subversion/issues
@@ -16,14 +16,14 @@ latest version is 1.14.4
 |:---:|:---:|:---:|:---:|
 | base-image          | -      | -              | debian:oldstable-slim |
 | zlib                | 1.3.1  |   2024-01-19   | |
-| expat               | 2.6.3  | **2024-10-15** | |
+| expat               | 2.6.4  | **2024-12-22** | |
 | libressl            | 3.8.4  |   2024-05-05   | httpd_svn only |
-| apr                 | 1.7.5  | **2024-10-15** | |
+| apr                 | 1.7.5  |   2024-10-15   | |
 | apr-util            | 1.6.3  |   2023-02-12   | |
-| pcre2               | 10.44  | **2024-10-15** | httpd_svn only |
-| httpd               | 2.4.62 | **2024-10-15** | httpd_svn only |
-| sqlite-amalgamation | 3.46.1 | **2024-10-15** | |
-| subversion          | 1.14.4 | **2024-10-15** | |
+| pcre2               | 10.44  |   2024-10-15   | httpd_svn only |
+| httpd               | 2.4.62 |   2024-10-15   | httpd_svn only |
+| sqlite-amalgamation | 3.47.2 | **2024-12-22** | |
+| subversion          | 1.14.5 | **2024-12-22** | |
 
 ### subversion module version
   Subversion 1.10.x end of life.
