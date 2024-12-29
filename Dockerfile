@@ -18,8 +18,6 @@ FROM debian:oldstable-slim AS install
 COPY --from=build /usr/local/subversion /usr/local/subversion
 COPY --from=build /usr/local/httpd /usr/local/httpd
 
-ENV LD_LIBRARY_PATH /usr/local/subversion/lib:/usr/local/httpd/lib:$LD_LIBRARY_PATH
-
 RUN set -eux                                                                  \
  && apt-get update                                                            \
  && apt-get install -y                                                        \
@@ -29,6 +27,8 @@ RUN set -eux                                                                  \
  && rm -rf /var/lib/apt/lists/*                                               \
  && mkdir -p /var/svn                                                         \
  && ldconfig
+
+ENV LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib:$LD_LIBRARY_PATH
 
 EXPOSE 80 3690
 
