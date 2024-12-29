@@ -12,8 +12,6 @@ RUN chmod 755 /usr/local/subversion/bin/entrypoint.sh
 FROM debian:oldstable AS install
 COPY --from=build /usr/local/subversion /usr/local/subversion
 
-ENV LD_LIBRARY_PATH /usr/local/subversion/lib:$LD_LIBRARY_PATH
-
 RUN set -eux                                                                  \
  && apt-get update                                                            \
  && apt-get install -y                                                        \
@@ -22,6 +20,8 @@ RUN set -eux                                                                  \
  && rm -rf /var/lib/apt/lists/*                                               \
  && mkdir -p /var/svn                                                         \
  && ldconfig
+
+ENV LD_LIBRARY_PATH=/usr/local/subversion/lib:$LD_LIBRARY_PATH
 
 EXPOSE 3690
 
