@@ -1,6 +1,6 @@
 #/bin/bash
 
-set -euxo pipefail
+set -euxo
 
 cd /usr/local/src
 
@@ -47,7 +47,7 @@ apt-get install -y libsasl2-dev
 echo "/usr/local/subversion/lib" >  /etc/ld.so.conf.d/subversion.conf
 ldconfig
 
-export LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib
 
 ## BASE
 tar zxvf ${ZLIB_SOURCE}.tar.gz
