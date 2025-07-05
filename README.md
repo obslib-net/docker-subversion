@@ -16,18 +16,18 @@ latest version is 1.14.5
 |:---:|:---:|:---:|:---:|
 | base-image          | -      | -              | debian:oldstable-slim |
 | zlib                | 1.3.1  |   2024-01-19   | |
-| expat               | 2.6.4  | **2024-12-22** | |
-| libressl            | 3.8.4  |   2024-05-05   | httpd_svn only |
-| apr                 | 1.7.5  |   2024-10-15   | |
+| expat               | 2.7.1  | **2025-07-05** | |
+| libressl            | 4.1.0  | **2025-07-05** | httpd_svn only |
+| apr                 | 1.7.6  | **2025-07-05** | |
 | apr-util            | 1.6.3  |   2023-02-12   | |
-| pcre2               | 10.44  |   2024-10-15   | httpd_svn only |
-| httpd               | 2.4.62 |   2024-10-15   | httpd_svn only |
-| sqlite-amalgamation | 3.47.2 | **2024-12-22** | |
-| subversion          | 1.14.5 | **2024-12-22** | |
+| pcre2               | 10.45  |   2025-02-27   | httpd_svn only |
+| httpd               | 2.4.63 |   2024-02-27   | httpd_svn only |
+| sqlite-amalgamation | 3.50.2 | **2025-07-05** | |
+| subversion          | 1.14.5 |   2024-12-22   | |
 
 ### subversion module version
   Subversion 1.10.x end of life.
-  The currently available version is 1.14.4.
+  The currently available version is 1.14.X
 
 ## applicaion path
 * subversion : /usr/local/subversion
