@@ -1,6 +1,6 @@
 #/bin/bash
 
-set -euxo pipefail
+set -euxo
 
 cd /usr/local/src
 
@@ -53,8 +53,8 @@ echo "/usr/local/subversion/lib" >  /etc/ld.so.conf.d/subversion.conf
 echo "/usr/local/httpd/lib"      >> /etc/ld.so.conf.d/subversion.conf
 ldconfig
 
-export LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib:$LD_LIBRARY_PATH
-export LD_RUN_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib:$LD_RUN_PATH
+export LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib
+export LD_RUN_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib
 
 ## BASE
 tar zxvf ${ZLIB_SOURCE}.tar.gz
