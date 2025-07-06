@@ -28,7 +28,7 @@ RUN set -eux                                                                  \
  && mkdir -p /var/svn                                                         \
  && ldconfig
 
-ENV LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib
 
 EXPOSE 80 3690
 
