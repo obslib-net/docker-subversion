@@ -15,14 +15,14 @@ latest version is 1.14.5
 | **name** | **version** | **image update** | **remark** |
 |:---:|:---:|:---:|:---:|
 | base-image          | -      | -              | debian:oldstable-slim |
-| zlib                | 1.3.1  |   2024-01-19   | |
-| expat               | 2.7.1  | **2025-07-05** | |
-| libressl            | 4.1.0  | **2025-07-05** | httpd_svn only |
-| apr                 | 1.7.6  | **2025-07-05** | |
+| zlib                | 1.3.2  | **2026-07-27** | |
+| expat               | 2.8.2  | **2026-07-27** | |
+| libressl            | 4.3.2  | **2026-07-27** | httpd_svn only |
+| apr                 | 1.7.6  |   2025-07-05   | |
 | apr-util            | 1.6.3  |   2023-02-12   | |
-| pcre2               | 10.45  |   2025-02-27   | httpd_svn only |
-| httpd               | 2.4.63 |   2024-02-27   | httpd_svn only |
-| sqlite-amalgamation | 3.50.2 | **2025-07-05** | |
+| pcre2               | 10.47  | **2026-07-27** | httpd_svn only |
+| httpd               | 2.4.68 | **2026-07-27**	| httpd_svn only |
+| sqlite-amalgamation | 3.53.4 | **2026-07-27** | |
 | subversion          | 1.14.5 |   2024-12-22   | |
 
 ### subversion module version
