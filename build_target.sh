@@ -45,7 +45,7 @@ wget https://www.sqlite.org/${SQLITE_VERSION_REL_YEAR}/${SQLITE_SOURCE}.zip
 wget https://archive.apache.org/dist/subversion/${SUBVERSION_SOURCE}.tar.gz
 
 # INSTALL EXTEND LIB
-apt-get install -y libsasl2-dev libldap2-dev
+apt-get install -y libsasl2-dev libldap-dev
 
 # BUILD
 ## INIT
