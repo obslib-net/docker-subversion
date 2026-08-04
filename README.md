@@ -1,2 +1,2 @@
-# subversion server
-build from soure code
+# Subversion Server
+build from source code

@@ -1,6 +1,6 @@
-#/bin/bash
+#!/bin/bash
 
-set -euxo
+set -euxo pipefail
 
 cd /usr/local/src
 
@@ -12,12 +12,16 @@ apt-get install -y unzip wget
 
 # DEFINE
 ## BASE
+# Variables defined in get_deps.sh sourcing
 ZLIB_SOURCE=zlib-${ZLIB_VERSION}
-EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
+EXPAT_SOURCE=expat-${EXPAT_VERSION}
+EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
 
 ## HTTPD
 APR_SOURCE=apr-${APR_VERSION}
 APR_UTIL_SOURCE=apr-util-${APR_UTIL_VERSION}
+PCRE2_SOURCE=pcre2-${PCRE2_VERSION}
+HTTPD_SOURCE=httpd-${HTTPD_VERSION}
 
 ## SUBVERSION
 SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
