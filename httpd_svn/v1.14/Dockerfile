@@ -22,7 +22,7 @@ RUN set -eux                                                                  \
  && apt-get update                                                            \
  && apt-get install -y                                                        \
         libsasl2-2                                                            \
-        libldap-common                                                        \
+        libldap-2.5-0                                                         \
  && apt-get -y clean                                                          \
  && rm -rf /var/lib/apt/lists/*                                               \
  && mkdir -p /var/svn                                                         \
