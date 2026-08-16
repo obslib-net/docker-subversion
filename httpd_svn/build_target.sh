@@ -82,6 +82,7 @@ make
 make install
 cd ..
 
+
 ## SUBVERSION
 unzip ${SQLITE_SOURCE}.zip
 tar zxvf ${SUBVERSION_SOURCE}.tar.gz

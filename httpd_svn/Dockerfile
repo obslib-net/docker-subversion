@@ -8,8 +8,9 @@ COPY build_template/source_version.sh                                   /usr/loc
 COPY build_template/source_get.sh                                       /usr/local/src/source_get.sh
 COPY ${BUILD_TARGET}/${BUILD_VERSION}/source_version_custom.sh          /usr/local/src/source_version_custom.sh
 COPY ${BUILD_TARGET}/build_target.sh                                    /usr/local/src/build_target.sh
-RUN  chmod 755 /usr/local/src/*.sh
-RUN  /usr/local/src/build_target.sh
+
+RUN  chmod 755 /usr/local/src/*.sh                                      \
+  && /usr/local/src/build_target.sh
 
 COPY ${BUILD_TARGET}/entrypoint_svnserve.sh                             /usr/local/subversion/bin/entrypoint.sh
 RUN  chmod 755 /usr/local/subversion/bin/entrypoint.sh
@@ -20,8 +21,8 @@ COPY ${BUILD_TARGET}/entrypoint_httpd.sh                                /usr/loc
 RUN chmod 755 /usr/local/httpd/bin/entrypoint.sh
 
 FROM debian:oldstable-slim AS install
-COPY --from=build /usr/local/subversion /usr/local/subversion
-COPY --from=build /usr/local/httpd /usr/local/httpd
+COPY --from=build /usr/local/subversion                                 /usr/local/subversion
+COPY --from=build /usr/local/httpd                                      /usr/local/httpd
 
 RUN set -eux                                                                  \
  && apt-get update                                                            \
@@ -38,3 +39,4 @@ ENV LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib
 EXPOSE 80 3690
 
 CMD ["/usr/local/httpd/bin/entrypoint.sh"]
+
