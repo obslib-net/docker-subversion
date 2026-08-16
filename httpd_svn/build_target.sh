@@ -4,6 +4,13 @@ set -euxo pipefail
 
 cd /usr/local/src
 
+# SOURCE GET
+. source_get.sh
+
+if [ -z "${SUBVERSION_VERSION}" ]; then
+    exit 1
+fi
+
 ## BASE
 tar zxvf ${ZLIB_SOURCE}.tar.gz
 cd ${ZLIB_SOURCE}
