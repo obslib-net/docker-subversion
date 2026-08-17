@@ -103,9 +103,9 @@ make install
 cd ..
 
 ## config
-rm -r -f /usr/local/subversion/share
-rm -r -f /usr/local/httpd/share
-rm -r -f /usr/local/httpd/conf/extra
-rm -r -f /usr/local/httpd/conf/original
-rm -r -f /usr/local/httpd/manual
-rm -r -f /usr/local/httpd/man
+rm -r -f /usr/local/subversion/share    \
+    /usr/local/httpd/share              \
+    /usr/local/httpd/conf/extra         \
+    /usr/local/httpd/conf/original      \
+    /usr/local/httpd/manual             \
+    /usr/local/httpd/man
