@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-/usr/local/httpd/bin/httpd -DFOREGROUND
+set -euo pipefail
+
+exec /usr/local/httpd/bin/httpd -DFOREGROUND

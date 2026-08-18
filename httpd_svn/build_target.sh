@@ -1,60 +1,15 @@
-#/bin/bash
+#!/bin/bash
 
-set -euxo
+set -euxo pipefail
 
 cd /usr/local/src
 
-apt-get -y update; \
-apt-get install -y build-essential; \
-apt-get install -y unzip wget
+# SOURCE GET
+. source_get.sh
 
-. /usr/local/src/get_deps.sh
-
-# DEFINE
-## BASE
-ZLIB_SOURCE=zlib-${ZLIB_VERSION}
-EXPAT_SOURCE=expat-${EXPAT_VERSION};EXPAT_PREFIX=R_$(echo $EXPAT_VERSION | sed -e 's/\./_/g')
-LIBRESSL_SOURCE=libressl-${LIBRESSL_VERSION}
-
-## HTTPD
-APR_SOURCE=apr-${APR_VERSION}
-APR_UTIL_SOURCE=apr-util-${APR_UTIL_VERSION}
-PCRE2_SOURCE=pcre2-${PCRE2_VERSION}
-HTTPD_SOURCE=httpd-${HTTPD_VERSION}
-
-## SUBVERSION
-SQLITE_SOURCE=sqlite-amalgamation-$(echo $(printf %d%02d%02d%02d $(echo $SQLITE_VERSION | sed -e 's/\./ /g')))
-SUBVERSION_SOURCE=subversion-${SUBVERSION_VERSION}
-
-# GET
-## BASE
-wget https://www.zlib.net/${ZLIB_SOURCE}.tar.gz
-wget https://github.com/libexpat/libexpat/releases/download/${EXPAT_PREFIX}/${EXPAT_SOURCE}.tar.gz
-wget https://cdn.openbsd.org/pub/OpenBSD/LibreSSL/${LIBRESSL_SOURCE}.tar.gz
-
-## HTTPD
-wget https://dist.apache.org/repos/dist/release/apr/${APR_SOURCE}.tar.gz
-wget https://dist.apache.org/repos/dist/release/apr/${APR_UTIL_SOURCE}.tar.gz
-wget https://github.com/PCRE2Project/pcre2/releases/download/${PCRE2_SOURCE}/${PCRE2_SOURCE}.tar.gz
-
-wget https://dist.apache.org/repos/dist/release/httpd/${HTTPD_SOURCE}.tar.gz
-
-
-## SUBVERSION
-wget https://www.sqlite.org/${SQLITE_VERSION_REL_YEAR}/${SQLITE_SOURCE}.zip
-wget https://archive.apache.org/dist/subversion/${SUBVERSION_SOURCE}.tar.gz
-
-# INSTALL EXTEND LIB
-apt-get install -y libsasl2-dev libldap-dev
-
-# BUILD
-## INIT
-echo "/usr/local/subversion/lib" >  /etc/ld.so.conf.d/subversion.conf
-echo "/usr/local/httpd/lib"      >> /etc/ld.so.conf.d/subversion.conf
-ldconfig
-
-export LD_LIBRARY_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib
-export LD_RUN_PATH=/usr/local/subversion/lib:/usr/local/httpd/lib
+if [ -z "${SUBVERSION_VERSION}" ]; then
+    exit 1
+fi
 
 ## BASE
 tar zxvf ${ZLIB_SOURCE}.tar.gz
@@ -127,6 +82,7 @@ make
 make install
 cd ..
 
+
 ## SUBVERSION
 unzip ${SQLITE_SOURCE}.zip
 tar zxvf ${SUBVERSION_SOURCE}.tar.gz
@@ -147,9 +103,9 @@ make install
 cd ..
 
 ## config
-rm -r -f /usr/local/subversion/share
-rm -r -f /usr/local/httpd/share
-rm -r -f /usr/local/httpd/conf/extra
-rm -r -f /usr/local/httpd/conf/original
-rm -r -f /usr/local/httpd/manual
-rm -r -f /usr/local/httpd/man
+rm -r -f /usr/local/subversion/share    \
+    /usr/local/httpd/share              \
+    /usr/local/httpd/conf/extra         \
+    /usr/local/httpd/conf/original      \
+    /usr/local/httpd/manual             \
+    /usr/local/httpd/man
