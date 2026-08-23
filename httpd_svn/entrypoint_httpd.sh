@@ -3,3 +3,4 @@
 set -euo pipefail
 
 exec /usr/local/httpd/bin/httpd -DFOREGROUND
+

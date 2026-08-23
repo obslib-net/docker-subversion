@@ -69,3 +69,4 @@ export LD_RUN_PATH
 
 # LOAD LIBRARY
 ldconfig
+
