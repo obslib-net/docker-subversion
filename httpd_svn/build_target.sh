@@ -14,8 +14,8 @@ fi
 ## BASE
 tar zxvf ${ZLIB_SOURCE}.tar.gz
 cd ${ZLIB_SOURCE}
-./configure --prefix=/usr/local/httpd       \
-            --shared                        \
+./configure --prefix=/usr/local/httpd           \
+            --shared                            \
             --libdir=/usr/local/httpd/lib
 make
 make install

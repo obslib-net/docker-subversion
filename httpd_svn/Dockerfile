@@ -2,7 +2,7 @@
 FROM debian:oldstable AS build
 
 ARG BUILD_TARGET=httpd_svn
-ARG BUILD_VERSION=v0.0
+ARG BUILD_VERSION=undefined
 
 COPY build_template/source_version.sh                                   /usr/local/src/source_version.sh
 COPY build_template/source_get.sh                                       /usr/local/src/source_get.sh

@@ -12,3 +12,4 @@ if [[ ! -d "${SUBVERSION_REPOS}" ]]; then
 fi
 
 exec /usr/local/subversion/bin/svnserve --daemon --foreground --root="${SUBVERSION_REPOS}"
+
