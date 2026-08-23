@@ -1,18 +1,17 @@
 # Subversion server
-Subversion is an open source version control system. 
-docker build from source code(latest stable packages).
-latest version is 1.14.5
+
+This project provides Docker images for [Subversion](https://subversion.apache.org/), an open-source version control system.
+The images are built from the source code of the latest stable packages.
+The latest Subversion version included is **1.14.5**.
 
 # Project
 * Where to file issues: https://github.com/obslib-net/docker-subversion/issues
 * Supported architectures: i386, amd64, arm32v7, arm64v8
 * DockerHub: https://hub.docker.com/r/obslib/subversion
 
-
-
 ## build source code list and version
-### dependency lib
-| **name** | **version** | **image update** | **remark** |
+### Dependencies
+| **Name** | **Version** | **Image Update** | **Remark** |
 |:---:|:---:|:---:|:---:|
 | base-image          | -      | -              | debian:oldstable-slim |
 | zlib                | 1.3.2  | **2026-07-27** | |
